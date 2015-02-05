@@ -9,6 +9,7 @@ var BinarySearchTree = function(value){
 
 BinarySearchTree.methods = {};
 
+// O(n)
 BinarySearchTree.methods.insert = function(newValue) {
   if (newValue < this.value) {
     if (this.left === null) {
@@ -25,6 +26,7 @@ BinarySearchTree.methods.insert = function(newValue) {
   }
 };
 
+// O(n)
 BinarySearchTree.methods.contains = function(target) {
   if (this.value === target) {
     return true;
@@ -36,6 +38,7 @@ BinarySearchTree.methods.contains = function(target) {
   }
 };
 
+// O(n)
 BinarySearchTree.methods.depthFirstLog = function(cb) {
   cb(this.value);
   this.left && this.left.depthFirstLog(cb);
