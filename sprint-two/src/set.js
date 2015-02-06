@@ -8,7 +8,7 @@ var setPrototype = {};
 //O(1)
 setPrototype.add = function(item){
   if (!this.contains(item)) {
-    this._storage.set(item, item);
+    this._storage.insert(item, item);
   }
 };
 //O(1)

@@ -45,6 +45,17 @@ BinarySearchTree.methods.depthFirstLog = function(cb) {
   this.right && this.right.depthFirstLog(cb);
 };
 
+BinarySearchTree.methods.breadthFirstLog = function () {
+  var q = new Queue();
+  q.enqueue(this);
+  var current;
+  while (current = q.dequeue()) {
+    console.log(current.value);
+    current.left !== null && q.enqueue(current.left);
+    current.right !== null && q.enqueue(current.right);
+  }
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  */

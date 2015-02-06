@@ -5,12 +5,13 @@ var LinkedList = function(){
 
 
   //Constant time O(1)
-  list.addToTail = function(value){
+  list.addToTail = function(value, key){
+
     if (this.head === null) {
-      this.head = Node(value);
+      this.head = Node(value, key);
       this.tail = this.head;
     } else {
-      this.tail.next = Node(value);
+      this.tail.next = Node(value, key);
       this.tail = this.tail.next;
     }
   };
@@ -23,10 +24,11 @@ var LinkedList = function(){
     return value.value;
   };
   //O(n)
-  list.contains = function(target){
+  list.contains = function(target, checkKey){
     var current = this.head;
+    var check = checkKey === true ? "key" : "value";
     while (current) {
-      if (current.value === target) {
+      if (current[check] === target) {
         return true;
       }
       current = current.next;
@@ -34,12 +36,47 @@ var LinkedList = function(){
     return false;
   };
 
+  list.traverse = function (fn) {
+    var current = this.head;
+    while (current) {
+      fn(current);
+      current = current.next;
+    }
+  };
+  list.find = function (key) {
+    var found = null;
+    this.traverse(function (node) {
+      if (node.key === key) {
+        found = node;
+      }
+    });
+    return found;
+  };
+  list.remove = function (key) {
+    var previous = null;
+    this.traverse(function (node) {
+      if (node.key === key) {
+        if (previous !== null) {
+          previous.next = node.next;
+        } else {
+          this.head = node.next
+        }
+        if (node.next === null) {
+          this.tail = previous;
+        }
+        node.next = null;
+      }
+      previous = node;
+    });
+  };
+
   return list;
 };
 
-var Node = function(value){
+var Node = function(value, key){
   var node = {};
 
+  node.key = key || null;
   node.value = value;
   node.next = null;
 
